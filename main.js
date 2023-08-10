@@ -68,7 +68,8 @@ clear.addEventListener("click", () => {
 });
 
 signChange.addEventListener("click", () => {
-  userValue = -userValue;
+  userValue.unshift("-");
+  userOutput.textContent = Number(userValue.join(""));
 });
 
 divide.addEventListener("click", () => {
