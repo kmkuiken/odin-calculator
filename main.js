@@ -39,11 +39,15 @@ function addEval(eval) {
 }
 
 allclear.addEventListener("click", () => {
-
+  // clear everything
+  history = [0];
+  total = 0;
+  userValue = 0;
 });
 
 clear.addEventListener("click", () => {
-  
+  // reset user value, but not history
+  userValue = 0;
 });
 
 signChange.addEventListener("click", () => {
@@ -51,7 +55,7 @@ signChange.addEventListener("click", () => {
 });
 
 divide.addEventListener("click", () => {
-  addEval("÷")
+  addEval("÷");
 });
 
 nine.addEventListener("click", () => {
