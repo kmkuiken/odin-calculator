@@ -22,11 +22,20 @@ const equals = document.querySelector("#equals");
 //total to store final result while history stores each individual action
 let total = 0;
 let userValue = 0;
-let history = ["0"];
+let history = [0];
 
 // divide, add, subtract, or multiply
 function addEval(eval) {
-  
+  // if user enters eval sign twice in a row the subsequent entries should not do anything
+  if (typeof history[history.length - 1] === "number") {
+    history.push(eval);
+  }
+
+  if (history[history.length - 1] == ".") {
+    // remove decimal since #.000 is same as #
+    history.pop();
+    history.push(eval);
+  }
 }
 
 allclear.addEventListener("click", () => {
@@ -42,7 +51,7 @@ signChange.addEventListener("click", () => {
 });
 
 divide.addEventListener("click", () => {
-  
+  addEval("÷")
 });
 
 nine.addEventListener("click", () => {
@@ -86,15 +95,15 @@ zero.addEventListener("click", () => {
 });
 
 add.addEventListener("click", () => {
-  
+  addEval("+");
 });
 
 subtract.addEventListener("click", () => {
-  
+  addEval("-");
 });
 
 multiply.addEventListener("click", () => {
-  
+  addEval("x");
 });
 
 decimal.addEventListener("click", () => {
