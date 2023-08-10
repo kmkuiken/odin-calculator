@@ -21,36 +21,27 @@ const equals = document.querySelector("#equals");
 const userOutput = document.querySelector("#user-value");
 
 //total to store final result while history stores each individual action
-let total = 0;
-let userValue = [0];
+let userValue = [];
 let history = [];
 
 // divide, add, subtract, or multiply
 function addEval(eval) {
-  // if user enters eval sign twice in a row the subsequent entries should not do anything
-  if (typeof history[history.length - 1] === "number") {
-    history.push(eval);
-    let userValueNum = Number(userValue.join(""));
-    switch (eval) {
-      case "+":
-        total = total + userValueNum;
-
-      case "-":
-        total = total - userValueNum;
-
-      case "x":
-        total = total * userValueNum;
-
-      case "/":
-        total = total / userValueNum;
-
-      case "=":
-        history = [];
+  // no input from the user means either we are starting with a sign (bad) or using 
+  // previous answer (fine)
+  if (userValue.length === 0) {
+    if (history.length === 1) {
+      userValue[0] = history[0];
+      history.pop();
     }
-    
-    userValue = [total];
-    userOutput.textContent = Number(userValue.join(""));
+    else {
+      return;
+    }
   }
+  
+  let userValueNum = Number(userValue.join(""));
+  history.push(userValueNum)
+  history.push(eval);
+  userValue = [];
 }
 
 function numEntry(num) {
@@ -60,14 +51,15 @@ function numEntry(num) {
 
 allclear.addEventListener("click", () => {
   // clear everything
-  history = [0];
-  total = 0;
-  userValue = 0;
+  history = [];
+  userValue = [0];
+  userOutput.textContent = "0";
 });
 
 clear.addEventListener("click", () => {
   // reset user value, but not history
-  userValue = 0;
+  userValue = [0];
+  userOutput.textContent = "0";
 });
 
 signChange.addEventListener("click", () => {
@@ -135,6 +127,35 @@ decimal.addEventListener("click", () => {
 });
 
 equals.addEventListener("click", () => {
-  addEval("=");
+  let userValueNum = Number(userValue.join(""));
+  history.push(userValueNum);
+  let total;
+
+  // There is no equation to compute so no change needed
+  if (history.length < 2) {
+    return;
+  }
+
+  switch (history[1]) {
+    case "+":
+      total = history[0] + history[2];
+      break;
+
+    case "-":
+      total = history[0] - history[2];
+      break;
+
+    case "x":
+      total = history[0] * history[2];
+      break;
+
+    case "/":
+      total = history[0] / history[2];
+      break;
+  }
+
+  history = [total];
+  userValue = []
+  userOutput.textContent = total;
 });
 
