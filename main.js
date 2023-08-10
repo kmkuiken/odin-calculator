@@ -52,7 +52,7 @@ function numEntry(num) {
 allclear.addEventListener("click", () => {
   // clear everything
   history = [];
-  userValue = [0];
+  userValue = [];
   userOutput.textContent = "0";
 });
 
@@ -60,6 +60,11 @@ clear.addEventListener("click", () => {
   // reset user value, but not history
   userValue = [0];
   userOutput.textContent = "0";
+
+  // remove history as well if only number is stored
+  if (history.length <= 1) {
+    history = [];
+  }
 });
 
 signChange.addEventListener("click", () => {
@@ -123,18 +128,19 @@ multiply.addEventListener("click", () => {
 });
 
 decimal.addEventListener("click", () => {
-  addEval(".");
+  numEntry(".");
 });
 
 equals.addEventListener("click", () => {
   let userValueNum = Number(userValue.join(""));
-  history.push(userValueNum);
   let total;
 
   // There is no equation to compute so no change needed
   if (history.length < 2) {
     return;
   }
+
+  history.push(userValueNum);
 
   switch (history[1]) {
     case "+":
