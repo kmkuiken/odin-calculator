@@ -19,6 +19,7 @@ const multiply = document.querySelector("#multiply");
 const decimal = document.querySelector("#decimal");
 const equals = document.querySelector("#equals");
 const userOutput = document.querySelector("#user-value");
+const userHistory = document.querySelector("#history");
 
 //total to store final result while history stores each individual action
 let userValue = [];
@@ -69,8 +70,11 @@ function addEval(eval) {
     history = [total];
     userOutput.textContent = total;
   }
+  userHistory.textContent += userValueNum;
+  userHistory.textContent += eval;
   history.push(eval);
   userValue = [];
+
 }
 
 function numEntry(num) {
@@ -83,6 +87,7 @@ allclear.addEventListener("click", () => {
   history = [];
   userValue = [];
   userOutput.textContent = "0";
+  userHistory.textContent = "";
 });
 
 clear.addEventListener("click", () => {
@@ -182,6 +187,13 @@ equals.addEventListener("click", () => {
     history.shift();
   }
 
+  // if user enters a eval and immediately equals the eval button is disregarded
+  if (typeof history[history.length - 1] != "number") {
+    userHistory.textContent = "";
+    history.pop();
+    return;
+  }
+
 
   switch (history[1]) {
     case "+":
@@ -207,6 +219,7 @@ equals.addEventListener("click", () => {
       break;
   }
 
+  userHistory.textContent = "";
   history = [total];
   userValue = []
   userOutput.textContent = total;
