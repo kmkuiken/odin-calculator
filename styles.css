@@ -13,7 +13,7 @@ body {
   height: 480px;
   width: 400px;
   padding: 20px;
-  margin: 100px;
+  margin: 100px 10px 100px 10px;
   background-color: black;
   display: flex;
   justify-content: space-between;
@@ -44,15 +44,13 @@ body {
 }
 
 .inputs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
   gap: 8px;
+  grid-template-columns: auto auto auto auto;
 }
 
 .inputs button {
   height: 60px;
-  width: 80px;
   background: inherit;
 	color: aquamarine;
   border-color: aquamarine;
@@ -65,7 +63,7 @@ body {
 }
 
 #equals {
-  width: 173px;
+  grid-column-start: 5;
+  grid-column-end: 3;
 }
-
 
