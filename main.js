@@ -167,6 +167,12 @@ equals.addEventListener("click", () => {
       break;
 
     case "/":
+      if (history[history.length - 1] === 0) {
+        history = [];
+        userOutput.value = [];
+        userOutput.textContent = "ERROR | DIV BY 0";
+        return;
+      }
       total = history[0] / history[2];
       break;
   }
