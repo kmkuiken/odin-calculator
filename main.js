@@ -146,6 +146,11 @@ equals.addEventListener("click", () => {
     return;
   }
 
+  // if history still contains last equation's answer remove
+  if (history.length >= 3) {
+    history.shift();
+  }
+
   history.push(userValueNum);
 
   switch (history[1]) {
