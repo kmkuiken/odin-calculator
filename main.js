@@ -32,14 +32,43 @@ function addEval(eval) {
     if (history.length === 1) {
       userValue[0] = history[0];
       history.pop();
-    }
+    }      
     else {
       return;
     }
   }
   
   let userValueNum = Number(userValue.join(""));
-  history.push(userValueNum)
+  history.push(userValueNum);
+  
+  if (history.length >= 3) {
+    switch (history[1]) {
+      case "+":
+        total = history[0] + history[2];
+        break;
+  
+      case "-":
+        total = history[0] - history[2];
+        break;
+  
+      case "x":
+        total = history[0] * history[2];
+        break;
+  
+      case "/":
+        if (history[history.length - 1] === 0) {
+          history = [];
+          userOutput.value = [];
+          userOutput.textContent = "ERROR | DIV BY 0";
+          return;
+        }
+        total = history[0] / history[2];
+        break;
+    }
+  
+    history = [total];
+    userOutput.textContent = total;
+  }
   history.push(eval);
   userValue = [];
 }
